@@ -1,0 +1,12 @@
+push
+rotate
+x 30
+rotate
+y 10
+box
+50 300 25 150 50 50
+sphere
+250 250 0 100
+display
+save
+img.png
