@@ -34,34 +34,25 @@ def scanline_convert(polygons, i, screen, zbuffer ):
     y0 = bot[1]
     z0 = bot[2]
     z1 = bot[2]
-    dx0 = (top[0] - bot[0]) / (top[1] - bot[1])
-    dz0 = (top[2] - bot[2]) / (top[1] - bot[1])
-    if (mid[1] - bot[1] != 0): dx1 = (mid[0] - bot[0]) / (mid[1] - bot[1])
-    else: dx1 = 0
-    if (top[1] - mid[1] != 0): dx1_1 = (top[0] - mid[0]) / (top[1] - mid[1])
-    else: dx1_1 = 0
-    if (mid[1] - bot[1] != 0): dz1 = (mid[2] - bot[2]) / (mid[1] - bot[1])
-    else: dz1 = 0
-    if (top[1] - mid[1] != 0): dz1_1 = (top[2] - mid[2]) / (top[1] - mid[1])
-    else: dz1_1 = 0
-    color = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
-    while (y0 < mid[1]):
+    random.seed()
+    color = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+    while y0 < int(mid[1]):
         draw_line(int(x0), int(y0), int(z0), int(x1), int(y0), int(z1), screen, zbuffer, color)
-        x0 += dx1_1
-        x1 += dx1
+        x0 += (top[0] - bot[0]) / (top[1] - bot[1])
+        x1 += (mid[0] - bot[0]) / (mid[1] - bot[1])
         y0 += 1
-        z0 += dz1_1
-        z1 += dz1
+        z0 += (top[2] - bot[2]) / (top[1] - bot[1])
+        z1 += (mid[2] - bot[2]) / (mid[1] - bot[1])
     x1 = mid[0]
     y0 = mid[1]
     z1 = mid[2]
-    while (y0 <= top[1]):
+    while y0 < int(top[1]):
         draw_line(int(x0), int(y0), int(z0), int(x1), int(y0), int(z1), screen, zbuffer, color)
-        x0 += dx0
-        x1 += dx1_1
+        x0 += (top[0] - bot[0]) / (top[1] - bot[1])
+        x1 += (top[0] - mid[0]) / (top[1] - mid[1])
         y0 += 1
-        z0 += dz0
-        z1 += dz1_1
+        z0 += (top[2] - bot[2]) / (top[1] - bot[1])
+        z1 += (top[2] - mid[2]) / (top[1] - mid[1])
 
 
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
